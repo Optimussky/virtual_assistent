@@ -132,6 +132,12 @@ def recibir_ordenes():
             assistant_talking('Con gusto, ahora mismo abro Youtube')
             webbrowser.open('https://www.youtube.com')
             continue
+        elif 'reproducir' in pedido:
+            pedido = pedido.replace('reproducir', '')
+            assistant_talking(f'Claro, abriré en youtube {pedido}')
+            webbrowser.open(f'https://www.youtube.com/search?q={pedido}')
+            continue
+
         elif 'abrir navegador por favor' in pedido:
             assistant_talking('Claro, estoy en ello')
             
@@ -155,11 +161,12 @@ def recibir_ordenes():
             assistant_talking('Wikidepdia dice lo siguiente: ')
             assistant_talking(resultado)
             continue
-        elif 'Dónde esta la catarina':
-            assistant_talking('Disculpe Amo. ¿Se refiere a su amigo, Luis Columna?')
-            break
-        elif 'Bay Helena':
-            assistant_talking(". .Adiós mi amo, me despido, deseando de corazón que siempre esté bien!")
+        elif 'catarinas' in pedido:
+            #pedir_dia()
+            assistant_talking('Disculpe Amo. ¿Se refiere a su amigo, Dani. o a Luis Columna?')
+            continue
+        elif 'terminar sesión' in pedido:
+            assistant_talking("Adiós mi amo, me despido, deseando de corazón que siempre esté bien!")
             break
 
 recibir_ordenes()
