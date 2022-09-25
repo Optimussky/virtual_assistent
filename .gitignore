@@ -1,0 +1,5 @@
+audio_chunks
+a.wav
+Pipfile
+recognized.txt
+process_big_audio_files.py
