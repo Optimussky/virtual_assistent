@@ -165,6 +165,10 @@ def recibir_ordenes():
             #pedir_dia()
             assistant_talking('Disculpe Amo. ¿Se refiere a su amigo, Dani. o a Luis Columna?')
             continue
+        elif 'y rafa' in pedido:
+            #pedir_dia()
+            assistant_talking('Disculpe Amo. ¿puedo decirlo?. Es un excelente Dev, pero creo que no sabe usar paiton')
+            continue
         elif 'terminar sesión' in pedido:
             assistant_talking("Adiós mi amo, me despido, deseando de corazón que siempre esté bien!")
             break
