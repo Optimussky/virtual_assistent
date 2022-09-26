@@ -7,6 +7,7 @@ import webbrowser
 import datetime
 import wikipedia
 import flask
+import subprocess
 
 # Escuchar nuestro microfono y devolver el audio como texto
 
@@ -29,7 +30,7 @@ def transformar_audio_en_texto():
         #Manejo de errores
         try:
             #Buscar en google
-            pedido = r.recognize_google(audio, language="es-mx")
+            pedido = r.recognize_google(audio, language="es")
 
             #prueba de ingres
             print(f"""\nUsted ha dicho: 
@@ -112,6 +113,9 @@ def saludo_inicial():
         momento = 'Buenas tardes'
 
 
+
+
+
     # Decir saludo
     assistant_talking(f'Hola, {momento} mi Amo. Soy Helena, su asistente personal')
     assistant_talking('Por favor dígame en qué le puedo servir!')
@@ -119,15 +123,33 @@ def saludo_inicial():
 def recibir_ordenes():
     #Activar saludo inicial
     saludo_inicial()
-
     # Variable de corte
     comenzar = True
 
     #loop central
     while comenzar:
         # Activar micro y guardar el pedido en un string
-        pedido = transformar_audio_en_texto().lower()
+        print("""
+            Menús:
+                - Hola
+                - Abrir youtube
+                - Reproducir + mi búsqueda en Youtube
+                - Abrir Correo
+                - Abrir Fatiga
+                - Abrir navegador por favor
+                - Buscar en Google + mi búsqueda en Google
+                - Qué día es hoy?
+                - Qué hora es?
+                - Adiós
+                - Catarinas
+                - Terminar Sesión
 
+
+            """)
+
+        # add libreria = get_sapace
+        pedido = transformar_audio_en_texto().lower()
+        
         if 'abrir youtube' in pedido:
             assistant_talking('Con gusto, ahora mismo abro Youtube')
             webbrowser.open('https://www.youtube.com')
@@ -137,7 +159,15 @@ def recibir_ordenes():
             assistant_talking(f'Claro, abriré en youtube {pedido}')
             webbrowser.open(f'https://www.youtube.com/search?q={pedido}')
             continue
-
+        elif 'abrir correo' in pedido:
+            assistant_talking(f'Claro, abriré correo')
+            webbrowser.open(f'https://mail.google.com/mail/u/0/#inbox')
+            continue    
+        elif 'abrir fatiga' in pedido:
+            pedido = pedido.replace('reproducir', '')
+            assistant_talking(f'Claro, abriendo el sistema')
+            webbrowser.open(f'http://localhost/fatiga/enviaFatiga.php?mov=1')
+            continue
         elif 'abrir navegador por favor' in pedido:
             assistant_talking('Claro, estoy en ello')
             
@@ -145,7 +175,6 @@ def recibir_ordenes():
             webbrowser.open('https://umamiland.withgoogle.com/en')#http://www.airforce.com/intothestorm
             #webbrowser.open('http://www.airforce.com/intothestorm')
             #https://www.google.com/search?q=vida
-            
             continue
         elif 'qué día es hoy' in pedido:
             pedir_dia()
@@ -154,21 +183,29 @@ def recibir_ordenes():
             pedir_hora()
             continue
         elif 'buscar en google' in pedido:
-            pedido = pedido.replace('buscar en google', '')
-            webbrowser.open(f'https://www.google.com/search?q={pedido}')
-            wikipedia.set_lang('es')
-            resultado = wikipedia.summary(pedido, sentences=1)
-            assistant_talking('Wikidepdia dice lo siguiente: ')
-            assistant_talking(resultado)
-            continue
+            try:
+                pedido = pedido.replace('buscar en google', '')
+                webbrowser.open(f'https://www.google.com/search?q={pedido}')
+                wikipedia.set_lang('es')
+                resultado = wikipedia.summary(pedido, sentences=1)
+                assistant_talking('Wikidepdia dice lo siguiente: ')
+                assistant_talking(resultado)
+                continue
+            except:
+                assistant_talking('Algo ha salido fuera de lo esperado: ')
+                print("Upsss, algo ha salido fuera de lo esperado")
         elif 'catarinas' in pedido:
             #pedir_dia()
             assistant_talking('Disculpe Amo. ¿Se refiere a su amigo, Dani. o a Luis Columna?')
             continue
-        elif 'y rafa' in pedido:
+        elif 'adiós' in pedido:
             #pedir_dia()
-            assistant_talking('Disculpe Amo. ¿puedo decirlo?. Es un excelente Dev, pero creo que no sabe usar paiton')
+            assistant_talking('Disculpe Amo. ¿puedo decirlo?. Es un excelente Dev, pero... creo que no sabe comunicarse con las mujeres')
             continue
+        elif 'hola' in pedido:
+            #pedir_dia()
+            assistant_talking('Hola en qué puedo ayudarle mi Amo')
+            continue    
         elif 'terminar sesión' in pedido:
             assistant_talking("Adiós mi amo, me despido, deseando de corazón que siempre esté bien!")
             break
@@ -182,7 +219,7 @@ recibir_ordenes()
 #transformar_audio_en_texto()
 
 # Opciones de Idioma
-id1 = 'HKEY_LOCAL_MACHINE/SOFTWARE/Microsoft/Speech/Voices\Tokens/TTS_MS_ES-MX_SABINA_11.0'
+id1 = 'HKEY_LOCAL_MACHINE/SOFTWARE/Microsoft/Speech/Voices/Tokens/TTS_MS_ES-MX_SABINA_11.0'
 id2 = 'HKEY_LOCAL_MACHINE/SOFTWARE/Microsoft/Speech/Voices/Tokens/TTS_MS_ES-ES_HELENA_11.0'
 id3 = 'HKEY_LOCAL_MACHINE/SOFTWARE/Microsoft/Speech/Voices/Tokens/TTS_MS_EN-US_ZIRA_11.0'
 id4 = 'HKEY_LOCAL_MACHINE/SOFTWARE/Microsoft/Speech/Voices/Tokens/TTS_MS_EN-US_DAVID_11.0'
