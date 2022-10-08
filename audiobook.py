@@ -10,7 +10,9 @@ with open('firstAudioBookV.0.1.pdf','rb') as book:
     reader = PyPDF2.PdfFileReader(book)
 
     audio_reader = pyttsx3.init()
-    audio_reader.setProperty("rate",100)
+    audio_reader.setProperty("rate",200)
+    volume = audio_reader.getProperty("volume")
+    audio_reader.setProperty("volume",1)
 
     for page in range(reader.numPages):
         next_page = reader.getPage(page)
