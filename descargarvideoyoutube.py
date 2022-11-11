@@ -9,7 +9,8 @@ from pytube import YouTube # pip install pytube
 #SAVE_PATH = "." #to_do 
   
 # link of the video to be downloaded 
-link="https://www.youtube.com/watch?v=OG5L13AvKLM"
+link = "https://www.youtube.com/watch?v=mMezRFzwBws"
+#link="https://www.youtube.com/watch?v=OG5L13AvKLM"
   
 try: 
     # object creation using YouTube

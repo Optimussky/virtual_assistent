@@ -51,7 +51,7 @@ def transformar_audio_en_texto():
 def assistant_talking(msj):
     # Iniciar el motor de pyttsx3
     engine = pyttsx3.init()
-    engine.setProperty('voice','id2')
+    engine.setProperty('voice','id')
 
     # Pronunciar mensaje
     engine.say(msj)

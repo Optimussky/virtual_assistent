@@ -4,5 +4,11 @@ with open('cat.jpg','rb') as f:
     offset = content.index(bytes.fromhex(''))
     #print(offset)
 
-    f.seek(offset + 2)
-    print(f.read())
+    last=[]
+    #last=f.seek(offset)
+    f.seek(offset)
+    last= f.read()
+    #print(f.read())
+    
+    print(b'Este es el ultimo elemento: %b',last)
+    

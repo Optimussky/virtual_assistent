@@ -3,3 +3,6 @@ a.wav
 Pipfile
 recognized.txt
 process_big_audio_files.py
+*.mp4
+*.mp3
+*.3gpp

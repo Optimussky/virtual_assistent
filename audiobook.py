@@ -3,7 +3,8 @@
 import pyttsx3
 import PyPDF2 # pip install PyPDF2
 
-with open('firstAudioBookV.0.1.pdf','rb') as book:
+with open('Audiolibro.pdf','rb') as book:
+#with open('firstAudioBookV.0.1.pdf','rb') as book:
 
     full_text = ""
 
